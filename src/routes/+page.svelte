@@ -61,6 +61,8 @@
 	scheduler.setInterval(parseCronExpression('*/1 * * * *'), getNext);
 </script>
 
+<title>{bigText} {smallerText}</title>
+
 <div class="wrapper">
 	<h1>{bigText}</h1>
 	<div>{smallerText}</div>
