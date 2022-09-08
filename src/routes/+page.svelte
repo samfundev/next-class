@@ -97,7 +97,7 @@
 	button {
 		border-radius: 5px;
 		border: none;
-		background-color: rgb(75, 75, 75);
+		background-color: rgb(180, 180, 180);
 		padding: 10px 15px;
 	}
 
