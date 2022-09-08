@@ -9,7 +9,11 @@ export const POST: RequestHandler = async ({ request }) => {
 
 	const response = await fetch(url);
 	const data = await response.text();
-	const calendar = ICalParser.toJSON(data);
+	// wtf is vite doing
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-ignore
+	const toJSON = ICalParser.toJSON ?? ICalParser.default.toJSON;
+	const calendar = toJSON(data);
 
 	return json(calendar.events.map(eventToClass));
 };
