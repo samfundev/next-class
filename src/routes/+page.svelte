@@ -74,7 +74,7 @@
 	<b>Enter calendar URL:</b>
 	<a
 		href="https://myhu.harrisburgu.edu/ICS/Academics/Academics.jnz?portlet=Calendar&screen=MainView&screenType=change#/manage-my-calendar"
-		>(find it here)</a
+		target="_blank">(find it here)</a
 	>
 	<br />
 	<input bind:value={url} />
@@ -94,6 +94,8 @@
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
+
+		text-align: center;
 	}
 
 	button {
