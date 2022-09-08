@@ -1,6 +1,6 @@
 export type Class = {
-	start: string;
-	end: string;
+	start: Date;
+	end: Date;
 	name: string;
 	location: string;
 };

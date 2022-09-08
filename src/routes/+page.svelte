@@ -29,7 +29,11 @@
 				body: JSON.stringify(url)
 			});
 
-			classes = await response.json();
+			classes = JSON.parse(await response.text(), (key, value) => {
+				if (key !== 'start' && key !== 'end') return value;
+
+				return new Date(value);
+			});
 		}
 	}
 
@@ -37,11 +41,11 @@
 	function getNext() {
 		if (classes === null) return;
 
-		classes.sort((a, b) => new Date(b.end).getTime() - new Date(a.end).getTime());
+		classes.sort((a, b) => b.end.getTime() - a.end.getTime());
 
 		let nextClass = null;
 		for (const _class of classes) {
-			if (new Date(_class.end) < new Date()) continue;
+			if (_class.end < new Date()) continue;
 
 			nextClass = _class;
 		}
@@ -52,8 +56,8 @@
 		} else {
 			bigText = nextClass.name;
 			smallerText = `in ${nextClass.location}, from ${dateFormat.formatRange(
-				new Date(nextClass.start),
-				new Date(nextClass.end)
+				nextClass.start,
+				nextClass.end
 			)}`;
 		}
 	}
