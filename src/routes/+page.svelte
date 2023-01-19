@@ -7,6 +7,7 @@
 
 	let bigText = '';
 	let smallerText = '';
+	let afterText = '';
 
 	let classes: Class[] | null = null;
 
@@ -44,9 +45,11 @@
 		classes.sort((a, b) => b.end.getTime() - a.end.getTime());
 
 		let nextClass = null;
+		let afterClass = null;
 		for (const _class of classes) {
 			if (_class.end < new Date()) continue;
 
+			afterClass = nextClass;
 			nextClass = _class;
 		}
 
@@ -60,6 +63,11 @@
 				nextClass.end
 			)}`;
 		}
+
+		afterText =
+			afterClass !== null
+				? `Then: ${afterClass.name} at ${dateFormat.format(afterClass.start)}`
+				: '';
 	}
 
 	scheduler.setInterval(parseCronExpression('*/1 * * * *'), getNext);
@@ -68,8 +76,11 @@
 <title>{bigText} {smallerText}</title>
 
 <div class="wrapper">
-	<h1>{bigText}</h1>
+	<h1 class="bigText">{bigText}</h1>
 	<div>{smallerText}</div>
+	{#if afterText != ''}
+		<div class="after">{afterText}</div>
+	{/if}
 </div>
 
 <button class="edit-url" on:click={() => dialog.showModal()}>Edit URL</button>
@@ -100,6 +111,11 @@
 		flex-direction: column;
 
 		text-align: center;
+	}
+
+	.after {
+		margin-top: 3em;
+		font-size: 80%;
 	}
 
 	button {
